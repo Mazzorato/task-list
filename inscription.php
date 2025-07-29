@@ -24,6 +24,12 @@ if(
 
 <body>
    <!-- TODO Formulaire pour s'inscrire (créer un utilisateur) -->
+
+   <form method="post">
+    <input type="text" name="username" required>
+    <input type="password" name="password" required>
+    <button type="submit"> S'inscrire</button>"
+   </form>
 </body>
 
 </html>
