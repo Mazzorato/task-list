@@ -6,7 +6,7 @@
  * 
  * A vous de remplir ces fonction pour qu'elles fonctionnent correctement.
  * 
- * Vous pourrez ainsi facilment les utiliser dans les autres fichiers et construire votre site sans plus vous soucis du SQL.
+ * Vous pourrez ainsi facilement les utiliser dans les autres fichiers et construire votre site sans plus vous soucis du SQL.
  */
 
 

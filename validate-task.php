@@ -2,6 +2,12 @@
 require_once "bdd-crud.php";
 // BONUS Valider une tache dans la BDD et redirection vers la page d'accueil
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

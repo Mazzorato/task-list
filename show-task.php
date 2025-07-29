@@ -2,6 +2,12 @@
 require_once "bdd-crud.php";
 // BONUS Afficher les détails d'une tâche spécifique en fonction de son ID passé en $_GET
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
