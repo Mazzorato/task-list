@@ -1,13 +1,16 @@
 <?php
 require_once "bdd-crud.php";
 // TODO Redirection vers la page de connexion si l'utilisateur n'est pas connecté
-$session_star();
+session_start();
 if(isset($_SESSION["user_id"]) == false) {
     header("Location: login.php");
+    exit();
 }
 
 // TODO Afficher la liste des tâches de l'utilisateur connecté
 
+
+$tasks = $request->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -19,14 +22,19 @@ if(isset($_SESSION["user_id"]) == false) {
 </head>
 <body>
     <header>
-        <a href="login.php">Login</a>
-        <a href="logout.php">Logout</a>
-        <a href="inscription.php">Se créer un compte</a>
+        <a href="login.php">Se connecter</a>
+        <a href="logout.php">Déconnexion</a>
+        
     </header>
     <h1>Liste des tâches</h1>
-    <div class="tasks"> 
+    <a href="add-task.php"> Ajouter une tâche </a>
         <!-- TODO Afficher la liste des tâches de l'utilisateur connecté -->
-
+    <?php foreach($task as $tasks):?>
+        <div class="task">
+    <p class="task_title"><?= $task["title"] ?> </p>
     </div>
+    <?php endforeach; ?>
+
+    
 </body>
 </html>

@@ -19,8 +19,14 @@ function connect_database() : PDO{
 function create_user(string $email,string $password) : int | null {
     $database = connect_database();
     // TODO
+ $request = $database->prepare("INSERT INTO tasklist (email,password) VALUES (?,?)");
+ $request->execute([
+        $email,
+        password_hash($password, PASSWORD_DEFAULT)
+    ]);
 
-    return $user_id;
+    return $database->lastInsertId();
+        
 }
 // Read (login)
 function get_user(int $id) : array | null {

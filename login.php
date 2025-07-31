@@ -2,22 +2,29 @@
 require_once "bdd-crud.php";
 // TODO Connection Utilisateur via la session
 session_start();
-if( 
-    isset($_POST["email"]) &&
-    isset($_POST["password"])
-) {
-    $database = new PDO("mysql.host=127.0.0.1;dbname=app-database","root","root");
-    $request = $database->prepare("SELECT * FROM User WHERE email=?");
+//Test connexion
+if (isset($_SESSION["user_id"]) == true) {
+    header("Location: index.php");
+    
+     
+}
+
+
+    // Request
+    $request = $database->prepare("SELECT * FROM tasklist WHERE email=?");
     $request->execute([
-        $_POST["email"]
+        $_SESSION["user_id"]
     ]);
+    
+
+     // Reponse
     $user = $request->fetch(PDO::FETCH_ASSOC);
     //var_dump($user);
     if($_POST["password"] == $user["password"]) {
-        //Je me connecte
         $_SESSION["user_id"] = $user["id"];
+        header("Location: index.php");
     }
-}
+
 ?>
 
 
@@ -26,12 +33,16 @@ if(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task-list</title>
 </head>
 <body>
     <h1>Connexion</h1>
     <!-- TODO Formulaire de connexion -->
+     <form action= ""  method="post">
+        <input type="email" name="email">
+        <input type="password" name="password">
+        <button>Se connecter</button>
+    </form>
 
-    <a href="inscription.php">Pas de compte ? S'inscrire</a>
 </body>
 </html>
