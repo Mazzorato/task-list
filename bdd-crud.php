@@ -19,10 +19,11 @@ function connect_database() : PDO{
 function create_user(string $email,string $password) : int | null {
     $database = connect_database();
     // TODO
- $request = $database->prepare("INSERT INTO tasklist (email,password) VALUES (?,?)");
+ $password_hash = password_hash($password, PASSWORD_DEFAULT);
+ $request = $database->prepare("INSERT INTO users (email,password) VALUES (?,?)");
  $request->execute([
         $email,
-        password_hash($password, PASSWORD_DEFAULT)
+        $password_hash
     ]);
 
     return $database->lastInsertId();
@@ -30,38 +31,48 @@ function create_user(string $email,string $password) : int | null {
 }
 // Read (login)
 function get_user(int $id) : array | null {
-    $database = connect_database();
+    $database = connect_database();  //Connexion à la base de données
+    $request = $database->prepare("SELECT * FROM users WHERE id = ?");
+    $request->execute([$id]);
+    return $request->fetch(PDO::FETCH_ASSOC)?: null;
     // TODO 
-
-    return $user;
 }
+
+    
 
 
 // CRUD Task
 // Create
-function add_task(string $name,string $description) : int | null {
+function add_task(string $title, int $user_id) : int | null {
     $database = connect_database();
+    $request = $database->prepare("INSERT INTO tasks (title, user_id) VALUES (?,?)");
+    $request->execute([$title, $user_id]);
+    return $database->lastInsertId();
+}
 
     
-    return $task_id;
-}
 
 //Read
 function get_task(int $id) : array | null {
     $database = connect_database();
+    $request = $database->prepare("SELECT * FROM tasks WHERE id = ?");
+    $request->execute([$id]);
     // TODO
-    return $task;
+    return $request->fetch(PDO::FETCH_ASSOC) ?: null;
 }
 
-function get_all_task() : array | null {
+function get_all_task(int $user_id) : array | null {
     $database = connect_database();
+    $request = $database->prepare("SELECT * FROM tasks WHERE user_id = ?");
+    $request->execute([$user_id]);
     // TODO
-    return $tasks;
+    return $request->fetchALL(PDO::FETCH_ASSOC);
 }
 
 // Delete (BONUS)
 function delete_task(int $id) : bool{
     $database = connect_database();
+    $request = $database->prepare("DELETE FROM tasks WHERE id = ?");
     // TODO
-    return $isSuccessful;
+    return $request->execute([$id]);
 }

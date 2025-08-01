@@ -6,23 +6,20 @@ $isSuccess = false;
 
 //name,email, password
 if ( 
-    isset($_POST["email"]) &&
-    isset($_POST["password"]) 
+    isset($_POST["email"]) && $_POST ["email"]!= "" &&
+    isset($_POST["password"]) && $_POST["password"] != "" 
 ) {   
-    create_user($_POST["email"],$_POST["password"]);
+    $userID = create_user($_POST["email"],$_POST["password"]);
+    //var_dump(($userID))
 
-    $request = $database->prepare("INSERT INTO tasklist (email,password) VALUES (?,?)");
-    $isSuccess = $request->execute([
-        $_POST["email"],
-    
-    ]);
-   
-   
+   if ($userID !== null) {
+    $isSuccess = true;
+   }
 }
-
-
+    
 ?>
-
+   
+   
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,19 +32,15 @@ if (
 
 <body>
    <!-- TODO Formulaire pour s'inscrire (créer un utilisateur) -->
-    <h1>Inscription</h1>
-    <a href="inscription.php"> S'inscrire</a>
+     <h1>Créer un compte</h1>
+    <form action="" method="post">
+        <input type="email" name="email">
+        <input type="password" name="password">
+        <button>S'inscrire</button>
+    </form>
     <a href="login.php">Se connecter</a>
-   <form method="post">
-    <input type="text" name="name" placeholder="Nom" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Mot de passe" required>
-    <button> S'inscrire</button>
-   </form>
-   <?php if ($isSuccess == true): ?>
-    <p>Utilisateur ajouté</p>
-    <?php var_dump($_POST["password"]); ?>
-    <?php endif; ?>
+    <?php if($isSuccess):?>
+        <p>Création du compte réussi.</p>
+    <?php endif;?>
 </body>
-
 </html>

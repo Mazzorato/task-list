@@ -2,17 +2,21 @@
 require_once "bdd-crud.php";
 
 session_start();
+
+
 if (isset($_SESSION["user_id"]) == false) {
     header('Location: login.php');
     exit;
-
-    if(isset($_POST["title"]))
-    $database = new PDO ("mysql:host=127.0.0.1;dbname=app-database"; "root", "root");
-    $request = $database->prepare("INSERT INTO Task (title.user_id) VALUES (?,?)");
 }
+$isSuccess = false;
 
 
-
+if(isset($_POST["title"])){
+    $task_id = add_task($_POST["title"], $_SESSION["user_id"]);
+    if ($task_id !== null) {
+        $isSuccess = true;
+    }
+}
 ?>
 
 
@@ -21,7 +25,7 @@ if (isset($_SESSION["user_id"]) == false) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tâche</title>
+    <title>Ajouter une tâche</title>
 </head>
 <body>
     <!-- TODO Formulaire pour ajouter une tâche -->
