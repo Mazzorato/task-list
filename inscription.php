@@ -5,17 +5,27 @@ require_once "bdd-crud.php";
 $isSuccess = false;
 
 //name,email, password
-if ( 
-    isset($_POST["email"]) && $_POST ["email"]!= "" &&
-    isset($_POST["password"]) && $_POST["password"] != "" 
-) {   
-    $userID = create_user($_POST["email"],$_POST["password"]);
-    //var_dump(($userID))
+try {
 
-   if ($userID !== null) {
-    $isSuccess = true;
-   }
-}
+            $database = new PDO("mysql:host=127.0.0.1;dbname=app-database", "root", "root");
+            $request = $database->prepare("INSERT INTO utilisateur (email,password) VALUES (?,?)");
+            $isSuccess = $request->execute([
+                $_POST["email"],
+                $_POST["password"]
+            ]);
+            
+            $userID = create_user($_POST["email"],$_POST["password"]);
+            //var_dump(($userID))
+        
+           if ($userID !== null) {
+            $isSuccess = true;
+           }
+        }
+
+        catch (\Throwable $th) {
+            $mailErreur = true;
+        } 
+ 
     
 ?>
    
