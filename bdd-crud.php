@@ -11,7 +11,7 @@
 
 
 function connect_database() : PDO{
-    $database = new PDO("mysql:host=127.0.0.1;dbname=app-database","root","root");
+    $database = new PDO("mysql:db;dbname=app-database","root","root");
     return $database;
 }
 // CRUD User

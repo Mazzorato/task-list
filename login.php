@@ -1,6 +1,6 @@
 <?php
 require_once "bdd-crud.php";
-// TODO Connection Utilisateur via la session
+
 session_start();
 
 //Test connexion
@@ -44,7 +44,7 @@ if (
 
 <body>
     <h1>Connexion</h1>
-    <!-- TODO Formulaire de connexion -->
+
     <form action="" method="post">
         <input type="email" name="email">
         <input type="password" name="password">

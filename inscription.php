@@ -4,7 +4,7 @@ require_once "bdd-crud.php";
 //Essaie de s'inscrire
 $isSuccess = false;
 
-//name,email, password
+//name, email, password
 try {
 
             $database = new PDO("mysql:host=127.0.0.1;dbname=app-database", "root", "root");
@@ -41,8 +41,8 @@ try {
 </head>
 
 <body>
-   <!-- TODO Formulaire pour s'inscrire (créer un utilisateur) -->
-     <h1>Créer un compte</h1>
+
+<h1>Créer un compte</h1>
     <form action="" method="post">
         <input type="email" name="email">
         <input type="password" name="password">
