@@ -23,11 +23,6 @@ docker build -t task-list .
 ```bash
 docker run --name task-list -d -p 8080:80 task-list
 ```
-
-## Port interne du container:
-- 80
-
-
 ## 4- Accéder à l'application
 Ouvrir le projet dans un naviguateur et aller sur : http://localhost:8080
 
